@@ -8,6 +8,7 @@ import {
 import './App.css';
 import LogIn from './login/login';
 import SignUp from './login/signup';
+import Example from './homepage/youtube';
 
 export default function App() {
   return (
@@ -18,6 +19,9 @@ export default function App() {
           </Route>
           <Route path="/signup" exact>
             <SignUp />
+          </Route>
+          <Route>
+            <Example />
           </Route>
         </Switch>
     </Router>

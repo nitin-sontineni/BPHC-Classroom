@@ -39,6 +39,7 @@ export default function LogIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(email);
+    window.location.href = "/homepage";
   };
 
   return (
