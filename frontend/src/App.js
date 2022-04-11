@@ -8,7 +8,9 @@ import {
 import './App.css';
 import LogIn from './login/login';
 import SignUp from './login/signup';
-import Example from './homepage/youtube';
+import MediaCard from "./components/home";
+import Course from "./components/coursepage";
+import Lecture from "./components/lecture";
 
 export default function App() {
   return (
@@ -20,8 +22,14 @@ export default function App() {
           <Route path="/signup" exact>
             <SignUp />
           </Route>
-          <Route>
-            <Example />
+          <Route path="/homepage" exact>
+            <MediaCard />
+          </Route>
+          <Route path="/course" exact>
+            <Course />
+          </Route>
+          <Route path="/lecture" exact>
+            <Lecture />
           </Route>
         </Switch>
     </Router>
