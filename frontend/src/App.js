@@ -6,11 +6,14 @@ import {
   Link
 } from "react-router-dom";
 import './App.css';
-import LogIn from './login/login';
-import SignUp from './login/signup';
-import MediaCard from "./components/home";
-import Course from "./components/coursepage";
-import Lecture from "./components/lecture";
+import LogIn from './components/login/login.js';
+import SignUp from './components/login/signup.js';
+import MediaCard from "./components/home/home.js";
+import Course from "./components/course/coursepage.js";
+import Lecture from "./components/lecture/lecture.js";
+import ProfHomePage from "./components/profHomePage/profHomePage.js";
+import ProfCourse from "./components/profCourse/profCoursePage.js";
+import ProfLecture from "./components/profLecture/profLecture.js";
 
 export default function App() {
   return (
@@ -22,11 +25,20 @@ export default function App() {
           <Route path="/signup" exact>
             <SignUp />
           </Route>
+          <Route path="/profHomePage" exact>
+            <ProfHomePage />
+          </Route>
           <Route path="/homepage" exact>
             <MediaCard />
           </Route>
+          <Route path="/profCourse" exact>
+            <ProfCourse />
+          </Route>
           <Route path="/course" exact>
             <Course />
+          </Route>
+          <Route path="/profLecture" exact>
+            <ProfLecture />
           </Route>
           <Route path="/lecture" exact>
             <Lecture />

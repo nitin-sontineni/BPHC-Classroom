@@ -5,17 +5,21 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import courses from '../data/enrolledCourses';
-import MenuAppBar from '../header';
-import img from '../images/coding.jpg';
-import "./home.css"
+import courses from '../../data/enrolledCourses';
+import MenuAppBar from '../../header';
+import img from '../../images/coding.jpg';
+import "./profHomePage.css"
+import AddCourse from './addCourse';
 
-export default function MediaCard() {
-  var name = "Nitin"
+export default function ProfHomepage() {
+  var name = "Prof. Narasimha"
   return (
     <div>
     <MenuAppBar />
-    <h2> Hi {name}, Your enrolled course(s) are</h2>
+    <h2> Hi {name}, Your course(s) are</h2>
+    <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
+      <AddCourse />
+    </div>
     <div style={{paddingLeft : '15px'}}>
     <Card sx={{ maxWidth: 345 }} >
       <CardMedia
@@ -36,7 +40,7 @@ export default function MediaCard() {
       </CardContent>
       <CardActions>
         {/* <Button size="small" variant="contained" href="#text-buttons">Get Details</Button> */}
-        <Button size="small" variant="contained" href="/course">Go to Course Content</Button>
+        <Button size="small" variant="contained" href="/profCourse">Go to Course Content</Button>
       </CardActions>
     </Card>
     </div>

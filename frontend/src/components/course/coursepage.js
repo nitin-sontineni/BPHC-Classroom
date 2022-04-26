@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
-import MenuAppBar from '../header';
+import MenuAppBar from '../../header';
 
 function createData(no, dol , title, recording, slides) {
   return { no, dol , title, recording, slides };

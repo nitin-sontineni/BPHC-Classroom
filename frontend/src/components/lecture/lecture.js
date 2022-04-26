@@ -37,12 +37,19 @@
 // }
 
 import React from 'react'
-import ReactPlayer from 'react-player/youtube'
+import ReactPlayer from 'react-player/youtube';
+import MenuAppBar from '../../header';
+import './lecture.css';
+import LecturePageTabs from "./lecturepage_tabs.js";
 
 export default function Lecture() {
     return (
-    <div className="float-container">
+    <div>
+      <MenuAppBar />
+      <div className="float-container">
       <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
+      <LecturePageTabs />
+      </div>
     </div>
   );
 }
