@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import MenuAppBar from '../../header';
+import AddLecture from './addLecture';
 
 function createData(no, dol , title, recording, slides) {
   return { no, dol , title, recording, slides };
@@ -136,6 +137,9 @@ export default function ProfCourse() {
     <div>
     <MenuAppBar />
     <h2> CS F111 - Computer Programming</h2>
+    <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
+      <AddLecture />
+    </div>
     <Root sx={{ width: 1200, maxWidth: '100%', paddingLeft: "15px" }}>
       <table aria-label="custom pagination table">
         <thead>

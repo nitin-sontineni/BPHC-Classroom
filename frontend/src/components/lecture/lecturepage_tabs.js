@@ -3,8 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import IconLabelButtons from '../notes/notes.js';
+//import IconLabelButtons from '../notes/notes.js';
 import RadioGroupRating from '../feedback/rating.js';
+import Notes from '../notes/notes.js';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,7 +57,8 @@ export default function LecturePageTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Take Notes
+        <Notes />
+        {/* <AddCourse /> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <RadioGroupRating />

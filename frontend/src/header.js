@@ -11,6 +11,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { WindowSharp } from '@mui/icons-material';
 // import { makeStyles } from '@mui/styles';
 
 // const useStyles = makeStyles({
@@ -35,6 +36,11 @@ export default function MenuAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    window.location.href = "/";
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -92,7 +98,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}

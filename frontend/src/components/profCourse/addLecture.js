@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AddCourse() {
+export default function AddLecture() {
   const [open, setOpen] = React.useState(false);
   const [courseid, setCourseId] = useState('');
   const [courseName, setCourseName] = useState('');
@@ -38,10 +38,10 @@ export default function AddCourse() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Add New Course
+        Add New Lecture
       </Button>
       <Dialog open={open} onClose={handleCancel}>
-        <DialogTitle>New Course</DialogTitle>
+        <DialogTitle>New Lecture</DialogTitle>
         <DialogContent>
           {/* <DialogContentText>
             Add New course
@@ -50,7 +50,8 @@ export default function AddCourse() {
             autoFocus
             margin="normal"
             id="id"
-            label="Course ID"
+            label="Date of Lecture"
+            type= "date"
             fullWidth
             variant="filled"
             required
@@ -59,11 +60,27 @@ export default function AddCourse() {
           <TextField
             margin="normal"
             id="name"
-            label="Course Name"
-            type="email"
+            label="Lecture Title"
             fullWidth
             variant="filled"
             required
+            onChange={courseNameChangeHandler}
+          />
+          <TextField
+            margin="normal"
+            id="name"
+            label="Lecture Link"
+            fullWidth
+            variant="filled"
+            required
+            onChange={courseNameChangeHandler}
+          />
+          <TextField
+            margin="normal"
+            id="name"
+            label="Slides Link"
+            fullWidth
+            variant="filled"
             onChange={courseNameChangeHandler}
           />
         </DialogContent>
