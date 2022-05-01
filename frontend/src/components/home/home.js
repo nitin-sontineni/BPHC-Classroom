@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import courses from '../../data/enrolledCourses';
 import MenuAppBar from '../../header';
+import AddCourse from './addCourse';
 import img from '../../images/coding.jpg';
 import "./home.css"
 
@@ -26,6 +27,9 @@ export default function ProfHomepage() {
     <div>
     <MenuAppBar />
     <h2> Hi {name}, Your enrolled course(s) are</h2>
+    <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
+      <AddCourse />
+    </div>
     <div style={{paddingLeft : '15px', paddingRight : '15px', display: "inline-block", "white-space": "nowrap"}}>
     {(data).map((elem) => (
     <Card sx={{ maxWidth: 345 }} style={{ paddingRight : '15px', display: "inline-block", "white-space": "nowrap",  justifyContent: "space-between" }}>

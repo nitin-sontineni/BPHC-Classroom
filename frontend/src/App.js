@@ -14,17 +14,32 @@ import Lecture from "./components/lecture/lecture.js";
 import ProfHomePage from "./components/profHomePage/profHomePage.js";
 import ProfCourse from "./components/profCourse/profCoursePage.js";
 import ProfLecture from "./components/profLecture/profLecture.js";
+import SelectRole from "./components/login/selectRole";
+import ProfLogIn from "./components/profLogin/profLogin";
+import ProfSignUp from "./components/profLogin/profSignup";
 
 export default function App() {
   return (
     <Router>
         <Switch>
           <Route path="/" exact>
+            <SelectRole />
+          </Route>
+
+          <Route path="/login" exact>
             <LogIn />
           </Route>
+          <Route path="/profLogin" exact>
+            <ProfLogIn />
+          </Route>
+
           <Route path="/signup" exact>
             <SignUp />
           </Route>
+          <Route path="/profSignup" exact>
+            <ProfSignUp />
+          </Route>
+
           <Route path="/profHomePage" exact>
             <ProfHomePage />
           </Route>

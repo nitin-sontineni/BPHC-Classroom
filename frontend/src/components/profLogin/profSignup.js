@@ -24,9 +24,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function ProfSignUp() {
 
-  const [id, setId] = useState('');
   const [name,setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,10 +38,6 @@ export default function SignUp() {
 
   const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
   const handleMouseDownConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-
-  const idChangeHandler = (event) => {
-    setId(event.target.value);
-  };
 
   const nameChangeHandler = (event) => {
     setName(event.target.value);
@@ -64,7 +59,7 @@ export default function SignUp() {
     event.preventDefault();
     console.log(name);
     console.log(email);
-    window.location.href = "/login";
+    window.location.href = "/profLogin";
   };
 
   return (
@@ -90,21 +85,11 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
-              id="id"
-              label="Student ID"
-              name="id"
-              autoComplete="id"
-              autoFocus
-              onChange={idChangeHandler}
-            />
-          <TextField
-              margin="normal"
-              required
-              fullWidth
               id="name"
               label="Name"
               name="name"
               autoComplete="name"
+              autoFocus
               onChange={nameChangeHandler}
             />
             <TextField
@@ -194,7 +179,7 @@ export default function SignUp() {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/profLogin" variant="body2">
                   {"Already have an account? Log In"}
                 </Link>
               </Grid>

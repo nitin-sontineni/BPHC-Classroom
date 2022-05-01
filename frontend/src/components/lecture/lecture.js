@@ -39,6 +39,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player/youtube';
 import MenuAppBar from '../../header';
+import Button from '@mui/material/Button';
 import './lecture.css';
 import LecturePageTabs from "./lecturepage_tabs.js";
 
@@ -50,6 +51,9 @@ export default function Lecture() {
     <div>
       <MenuAppBar />
       <h2> {lec_no}.{lec_title}</h2>
+      <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
+        <Button variant="outlined" href="/course">Back to Course Content</Button>
+      </div>
       <div className='rowC' style = {{ paddingLeft : '15px'}}>
       <ReactPlayer url= {url} width = '1550px' height = '450px' />
       <LecturePageTabs style = {{paddingLeft : '15px'}}>

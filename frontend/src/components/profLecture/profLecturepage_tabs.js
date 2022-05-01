@@ -49,10 +49,9 @@ export default function ProfLecturePageTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Notes" {...a11yProps(0)} />
           <Tab label="Feedback" {...a11yProps(1)} />
-          <Tab label="Back to Course Content" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -60,9 +59,6 @@ export default function ProfLecturePageTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <RadioGroupRating />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Back to Course Content
       </TabPanel>
     </Box>
   );
