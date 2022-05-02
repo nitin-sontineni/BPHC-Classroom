@@ -17,7 +17,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    h5: {
+      color: 'blue'
+    },
+  }
+});
 
 export default function LogIn() {
 
@@ -39,10 +45,7 @@ export default function LogIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(email);
-    if(email == "prof")
-      window.location.href = "/profHomePage";
-    else
-      window.location.href = "/homepage";
+    window.location.href = "/homepage";
   };
 
   return (

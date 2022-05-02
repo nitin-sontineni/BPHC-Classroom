@@ -1,51 +1,48 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Rating from '@mui/material/Rating';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
-import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
-import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import Box from '@mui/material/Box';
+import StarIcon from '@mui/icons-material/Star';
 
-const customIcons = {
-  1: {
-    icon: <SentimentVeryDissatisfiedIcon />,
-    label: 'Very Dissatisfied',
-  },
-  2: {
-    icon: <SentimentDissatisfiedIcon />,
-    label: 'Dissatisfied',
-  },
-  3: {
-    icon: <SentimentSatisfiedIcon />,
-    label: 'Neutral',
-  },
-  4: {
-    icon: <SentimentSatisfiedAltIcon />,
-    label: 'Satisfied',
-  },
-  5: {
-    icon: <SentimentVerySatisfiedIcon />,
-    label: 'Very Satisfied',
-  },
+const labels = {
+  1: 'Poor',
+  2: 'Bad',
+  3: 'Ok',
+  4: 'Good',
+  5: 'Excellent',
 };
 
-function IconContainer(props) {
-  const { value, ...other } = props;
-  return <span {...other}>{customIcons[value].icon}</span>;
+function getLabelText(value) {
+  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-IconContainer.propTypes = {
-  value: PropTypes.number.isRequired,
-};
+export default function LectureRating() {
+  const [value, setValue] = React.useState();
+  const [hover, setHover] = React.useState(-1);
 
-export default function RadioGroupRating() {
   return (
-    <Rating
-      name="highlight-selected-only"
-      defaultValue={3}
-      IconContainerComponent={IconContainer}
-      highlightSelectedOnly
-    />
+    <Box
+      sx={{
+        width: 200,
+        display: 'flex',
+        alignItems: 'center',
+        margin: 2
+      }}
+    >
+      <Rating
+        name="hover-feedback"
+        value={value}
+        getLabelText={getLabelText}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+      />
+      {value !== null && (
+        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+      )}
+    </Box>
   );
 }

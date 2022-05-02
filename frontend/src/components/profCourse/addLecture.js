@@ -37,7 +37,7 @@ export default function AddLecture() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" style={{textTransform : 'none'}} onClick={handleClickOpen}>
         Add New Lecture
       </Button>
       <Dialog open={open} onClose={handleCancel}>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 function NotesForm(props) {
-  var time = "10:30"
-  var placeholder = `Add Notes at ${time}`
+
+  var playedTime = window.sessionStorage.getItem("playedTime");
+  var placeholder = `Add Notes at ${playedTime}`
   var [input, setInput] = useState(props.edit ? props.edit.value : '');
 
   const inputRef = useRef(null);
@@ -17,10 +18,10 @@ function NotesForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    input = `${time}       ${input}`
+    var notes = `${playedTime}       ${input}`
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
-      text: input
+      text: notes
     });
     setInput('');
   };

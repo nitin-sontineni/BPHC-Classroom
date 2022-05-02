@@ -14,7 +14,7 @@ export default function ProfLecture() {
       <MenuAppBar />
       <h2> {lec_no}.{lec_title}</h2>
       <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
-        <Button variant="outlined" href="/course">Back to Course Content</Button>
+        <Button variant="outlined" style={{textTransform : 'none'}} href="/course">Back to Course Content</Button>
       </div>
       <div className='rowC' style = {{ paddingLeft : '15px'}}>
         <ReactPlayer url= {url} width = '1550px' height = '450px' />

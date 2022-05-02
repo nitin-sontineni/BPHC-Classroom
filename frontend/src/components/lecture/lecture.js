@@ -38,6 +38,7 @@
 
 import React from 'react'
 import ReactPlayer from 'react-player/youtube';
+import { useState } from 'react';
 import MenuAppBar from '../../header';
 import Button from '@mui/material/Button';
 import './lecture.css';
@@ -47,15 +48,26 @@ export default function Lecture() {
     var url ='https://www.youtube.com/watch?v=ysz5S6PUM-U';
     var lec_no = '1';
     var lec_title = 'Introduction';
+    const [played, setPlayed] = useState(0);
+
+    var mins = Math.floor(played/60);
+    var sec = (played - mins*60)/100;
+    var current_time = (mins + sec).toFixed(2);
+    window.sessionStorage.setItem("playedTime",current_time);
     return (
     <div>
       <MenuAppBar />
       <h2> {lec_no}.{lec_title}</h2>
       <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
-        <Button variant="outlined" href="/course">Back to Course Content</Button>
+        <Button variant="outlined" style={{textTransform : 'none'}} href="/course">Back to Course Content</Button>
       </div>
       <div className='rowC' style = {{ paddingLeft : '15px'}}>
-      <ReactPlayer url= {url} width = '1550px' height = '450px' />
+      <ReactPlayer url= {url} width = '1550px' height = '450px' 
+        controls
+        onProgress={(progress) => {
+          setPlayed(progress.playedSeconds);
+        }}
+      />
       <LecturePageTabs style = {{paddingLeft : '15px'}}>
       </LecturePageTabs>
       </div>

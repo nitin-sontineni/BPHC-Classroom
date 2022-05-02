@@ -22,7 +22,13 @@ import FormLabel from '@mui/material/FormLabel';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    h5: {
+      color: 'green'
+    },
+  }
+});
 
 export default function ProfSignUp() {
 

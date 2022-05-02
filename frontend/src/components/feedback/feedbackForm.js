@@ -5,15 +5,17 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import { Box } from '@mui/system';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import LectureRating from "./rating.js";
 
-export default function AddCourse() {
+export default function TakeFeedback() {
   const [open, setOpen] = React.useState(false);
-  const [courseid, setCourseId] = useState('');
-
-  const courseIdChangeHandler = (event) => {
-    setCourseId(event.target.value);
+  const [feedback, setFeedback] = useState('');
+  
+  const feedbackChangeHandler = (event) => {
+    setFeedback(event.target.value);
   };
 
   const handleClickOpen = () => {
@@ -25,27 +27,31 @@ export default function AddCourse() {
   };
 
   const handleAdd = () => {
-    console.log(courseid);
     setOpen(false);
   };
 
+  var playedTime = window.sessionStorage.getItem("playedTime");
+  var button_title = `Give your feedback at ${playedTime}`
+
   return (
-    <div>
-      <Button variant="outlined" style={{textTransform : 'none'}} onClick={handleClickOpen}>
-        Entroll to New Course
+    <div alignItems="center">
+    <Box marginLeft={30}>
+      <Button variant="outlined" style={{textTransform : 'none', padding: 5 }} onClick={handleClickOpen}>
+        {button_title}
       </Button>
-      <Dialog open={open} onClose={handleCancel}>
-        <DialogTitle>New Course</DialogTitle>
+      </Box>
+      <Dialog open={open} onClose={handleCancel} fullWidth >
+        <DialogTitle>Feedback</DialogTitle>
+        <LectureRating />
         <DialogContent>
           <TextField
-            autoFocus
-            margin="normal"
-            id="id"
-            label="Course ID"
+            id="standard-multiline-static"
+            label="Write your comments here"
+            multiline
+            rows={4}
+            variant="standard"
             fullWidth
-            variant="filled"
-            required
-            onChange={courseIdChangeHandler}
+            onChange={feedbackChangeHandler}
           />
         </DialogContent>
         <DialogActions>

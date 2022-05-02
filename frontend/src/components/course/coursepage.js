@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
+import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../header';
 
 function createData(no, dol , title, recording, slides) {
@@ -136,6 +137,9 @@ export default function UnstyledTable() {
     <div>
     <MenuAppBar />
     <h2> CS F111 - Computer Programming</h2>
+    <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
+        <Button variant="outlined" style={{textTransform : 'none'}} href="/homepage">Back to Homepage</Button>
+      </div>
     <Root sx={{ width: 1200, maxWidth: '100%', paddingLeft: "15px" }}>
       <table aria-label="custom pagination table">
         <thead>

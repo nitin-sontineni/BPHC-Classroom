@@ -49,7 +49,7 @@ export default function ProfHomepage() {
         </Typography>
       </CardContent> 
       <CardActions style={{ justifyContent: "space-between" }}>
-        <Button size="small" variant="contained" href="/course">Go to Course Content</Button>
+        <Button size="small" variant="contained" style={{textTransform : 'none'}} href="/course">Go to Course Content</Button>
       </CardActions>   
     </Card>
     ))}
