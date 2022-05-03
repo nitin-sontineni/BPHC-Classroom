@@ -20,6 +20,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 
 const theme = createTheme();
@@ -64,8 +65,24 @@ export default function SignUp() {
     event.preventDefault();
     console.log(name);
     console.log(email);
-    window.location.href = "/login";
-  };
+
+    axios.post(
+      "http://localhost:8080/student/signup",
+        {
+          "name" : name,
+          "password" : password,
+          "email" : email,
+          "studentId" : id
+      }
+      )
+    .then(res => { 
+      console.log(res);
+      window.location.href = "/login";
+    })
+    .catch(err => {
+      alert(err);
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -170,14 +187,6 @@ export default function SignUp() {
             />
             <FormControl>
       {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel> */}
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Student" />
-        <FormControlLabel value="male" control={<Radio />} label="Professor" />
-      </RadioGroup>
     </FormControl>
             <Button
               type="submit"

@@ -7,6 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
 
 export default function AddCourse() {
   const [open, setOpen] = React.useState(false);
@@ -26,6 +27,21 @@ export default function AddCourse() {
 
   const handleAdd = () => {
     console.log(courseid);
+    axios.post(
+      "http://localhost:8080/student/course/enroll",
+        {
+          "studentId" : window.sessionStorage.getItem("student_id"),
+          "courseId" : courseid,
+      }
+      )
+    .then(res => {
+      console.log(res);
+      window.location.href = "/homepage";
+    })
+    .catch(err => {
+      alert(err);
+    })
+
     setOpen(false);
   };
 

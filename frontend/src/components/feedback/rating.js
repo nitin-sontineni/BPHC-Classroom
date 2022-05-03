@@ -18,7 +18,7 @@ function getLabelText(value) {
 export default function LectureRating() {
   const [value, setValue] = React.useState();
   const [hover, setHover] = React.useState(-1);
-
+  //var playedTime = windows.sessionStora
   return (
     <Box
       sx={{

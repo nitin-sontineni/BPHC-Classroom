@@ -15,6 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { WindowSharp } from '@mui/icons-material';
 
 
 const theme = createTheme({
@@ -45,7 +47,24 @@ export default function LogIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(email);
-    window.location.href = "/homepage";
+
+    axios.post(
+      "http://localhost:8080/student/login",
+        {
+          "password" : password,
+          "email" : email,
+      }
+      )
+    .then(res => { 
+      window.sessionStorage.setItem("student_name",res["data"]["student"]["name"]);
+      window.sessionStorage.setItem("student_id",res["data"]["student"]["studentId"]);
+      window.sessionStorage.setItem("student_courses",res["data"]["student"]["courses"]);
+      window.location.href = "/homepage";
+    })
+    .catch(err => {
+      alert(err);
+    })
+    
   };
 
   return (

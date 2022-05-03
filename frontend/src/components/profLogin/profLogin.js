@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 
 const theme = createTheme(
@@ -46,8 +47,30 @@ export default function ProfLogIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(email);
-    window.location.href = "/profHomePage";
+    axios.post(
+      "http://localhost:8080/professor/login",
+        {
+          "email" : email,
+          "password" : password,
+      }
+      )
+    .then(res => { 
+      if(res["data"]["found"])
+      {
+        console.log(res)
+        window.sessionStorage.setItem("prof_name",res["data"]["professor"]["name"]);
+        window.sessionStorage.setItem("prof_email",res["data"]["professor"]["email"]);
+        window.sessionStorage.setItem("prof_courses",res["data"]["professor"]["courses"]);
+        window.location.href = "/profHomepage";
+      }
+      else
+      {
+        alert("Check username and password")
+      }
+    })
+    .catch(err => {
+      alert(err);
+    })
   };
 
   return (

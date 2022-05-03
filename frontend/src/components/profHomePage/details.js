@@ -1,23 +1,20 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
-import Button from '@material-ui/core/Button';
+import { Button } from '@mui/material';
 import MenuAppBar from '../../header';
-import axios from 'axios';
 
-// function createData(no, dol , title, recording, slides) {
-//   return { no, dol , title, recording, slides };
-// }
+function createData(no, id , name,) {
+  return { no, id, name };
+}
 
-// const rows = [
-//   createData("1", "01-01-2022", "Introduction", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
-//   createData("2", "03-01-2022", "Arrays", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
-//   createData("3", "05-01-2022", "Pointers", "www.youtube.com/watch?v=8PopR3x-VMY","https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1")
-//   // createData("1", "01-01-2022", "Introduction", 1, 1),
-//   // createData("2", "03-01-2022", "Arrays", 1, 1),
-//   // createData("3", "05-01-2022", "Pointers", 1, 1)
-// ]
+const rows = [
+  createData("1", "2018xxxxxx", "Sohan"),
+  createData("2", "2019xxxxxx", "Nivesh"),
+  // createData("1", "01-01-2022", "Introduction", 1, 1),
+  // createData("2", "03-01-2022", "Arrays", 1, 1),
+  // createData("3", "05-01-2022", "Pointers", 1, 1)
+]
 
 const blue = {
   200: '#A5D8FF',
@@ -118,84 +115,64 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
   `,
 );
 
-export default function UnstyledTable() {
-  const [rows, setRows] = React.useState([]);
-  const [mounted, setMounted] = useState(false);
+export default function StudentDetails() {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  if(!mounted) {
-  axios.post(
-    "http://localhost:8080/student/course/content",
-      {
-        "courseId" : window.sessionStorage.getItem("student_course_id"),
-      }
-    )
-  .then(res => { 
-    console.log(res)
-    // window.sessionStorage.setItem("student_name",res["data"]["student"]["name"]);
-    // window.sessionStorage.setItem("student_id",res["data"]["student"]["studentId"]);
-    // window.sessionStorage.setItem("student_courses",res["data"]["student"]["courses"]);
-  })
-  .catch(err => {
-    alert(err);
-  })
-  }
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  React.useEffect(() =>{
-    setMounted(true)
-  },[])
-  
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <div>
     <MenuAppBar />
-    <h2> {window.sessionStorage.getItem("student_course_id")} - {window.sessionStorage.getItem("student_course_name")}</h2>
+    <h2> Student Details</h2>
     <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
-        <Button variant="outlined" style={{textTransform : 'none'}} href="/homepage">Back to Homepage</Button>
-    </div>
-    {rows.length == 0 ? <h3> No Lectures added in this course</h3> :
+        <Button variant="outlined" style={{textTransform : 'none'}} href="/profHomepage">Back to Courses</Button>
+      </div>
     <Root sx={{ width: 1200, maxWidth: '100%', paddingLeft: "15px" }}>
       <table aria-label="custom pagination table">
         <thead>
           <tr>
-            <th>Lec No</th>
-            <th>Date of Lecture</th>
-            <th>Title</th>
-            <th>Recording Link</th>
-            <th>Lecture Slides</th>
+            <th>No</th>
+            <th>Student ID</th>
+            <th>Student Name</th>
           </tr>
         </thead>
         <tbody>
-          {(rows).map((row) => (
+          {(rowsPerPage > 0
+            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : rows
+          ).map((row) => (
             <tr key={row.no}>
               <td style={{ width: 20 }}>{row.no}</td>
               <td style={{ width: 100 }} align="right">
-                {row.dol}
+                {row.id}
               </td>
               <td style={{ width: 100 }} align="right">
-                {row.title}
+                {row.name}
               </td>
-              <td style={{ width: 180 }} align="right">
-                <a href= "/lecture">
-                <div>
-                  Lecture Link
-                </div>
-                </a>
-              </td>
-              <td style={{ width: 180 }} align="right">
-              <a href={row.slides} target="_blank">
-                <div>
-                  Slides Link
-                </div>
-                </a>
-              </td>
+              
             </tr>
           ))}
+
+          {emptyRows > 0 && (
+            <tr style={{ height: 41 * emptyRows }}>
+              <td colSpan={3} />
+            </tr>
+          )}
         </tbody>
       </table>
     </Root>
-    }
     </div>
   );
 }

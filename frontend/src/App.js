@@ -17,6 +17,7 @@ import ProfLecture from "./components/profLecture/profLecture.js";
 import SelectRole from "./components/login/selectRole";
 import ProfLogIn from "./components/profLogin/profLogin";
 import ProfSignUp from "./components/profLogin/profSignup";
+import StudentDetails from "./components/profHomePage/details";
 
 export default function App() {
   return (
@@ -46,6 +47,11 @@ export default function App() {
           <Route path="/homepage" exact>
             <MediaCard />
           </Route>
+
+          <Route path="/studentDetails" exact>
+            <StudentDetails />
+          </Route>
+
           <Route path="/profCourse" exact>
             <ProfCourse />
           </Route>

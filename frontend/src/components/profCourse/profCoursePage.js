@@ -3,19 +3,14 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import MenuAppBar from '../../header';
 import AddLecture from './addLecture';
+import "./profCourse.css";
+import axios from 'axios';
+import {useState} from 'react';
 
 function createData(no, dol , title, recording, slides) {
   return { no, dol , title, recording, slides };
 }
 
-const rows = [
-  createData("1", "01-01-2022", "Introduction", "www.youtube.com/watch?v=8PopR3x-VMY", "1"),
-  createData("2", "03-01-2022", "Arrays", "www.youtube.com/watch?v=8PopR3x-VMY", "1"),
-  createData("3", "05-01-2022", "Pointers", "www.youtube.com/watch?v=8PopR3x-VMY","1")
-  // createData("1", "01-01-2022", "Introduction", 1, 1),
-  // createData("2", "03-01-2022", "Arrays", 1, 1),
-  // createData("3", "05-01-2022", "Pointers", 1, 1)
-]
 
 const blue = {
   200: '#A5D8FF',
@@ -117,29 +112,52 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 );
 
 export default function ProfCourse() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  // const emptyRows =
+  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  // const rows = [
+  //   createData("1", "01-01-2022", "Introduction", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
+  //   createData("2", "03-01-2022", "Arrays", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
+  //   createData("3", "05-01-2022", "Pointers", "www.youtube.com/watch?v=8PopR3x-VMY","https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1")
+  //   // createData("1", "01-01-2022", "Introduction", 1, 1),
+  //   // createData("2", "03-01-2022", "Arrays", 1, 1),
+  //   // createData("3", "05-01-2022", "Pointers", 1, 1)
+  // ]
+  const [rows, setRows] = useState([]);
+  const [mounted, setMounted] = useState(false);
+  // console.log(window.sessionStorage.getItem("course_id"))
+  console.log(window.sessionStorage.getItem("course_id"))
+  if(!mounted) {
+  axios.post(
+    "http://localhost:8080/professor/course/content",
+      {
+        "courseId" : window.sessionStorage.getItem("course_id"),
+    }
+    )
+  .then(res => { 
+    console.log(res)
+    //setRows(res)
+  })
+  .catch(err => {
+    alert(err);
+  })
+}
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  React.useEffect(() =>{
+    setMounted(true)
+  },[])
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  
 
   return (
     <div>
     <MenuAppBar />
-    <h2> CS F111 - Computer Programming</h2>
+    <h2> {window.sessionStorage.getItem("course_id")} - {window.sessionStorage.getItem("course_name")}</h2>
     <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
       <AddLecture />
     </div>
+    {rows.length == 0 ? <h3> Add a lecture to continue </h3> :
     <Root sx={{ width: 1200, maxWidth: '100%', paddingLeft: "15px" }}>
       <table aria-label="custom pagination table">
         <thead>
@@ -152,9 +170,7 @@ export default function ProfCourse() {
           </tr>
         </thead>
         <tbody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
+          {(rows
           ).map((row) => (
             <tr key={row.no}>
               <td style={{ width: 20 }}>{row.no}</td>
@@ -172,7 +188,7 @@ export default function ProfCourse() {
                 </a>
               </td>
               <td style={{ width: 180 }} align="right">
-              <a href={row.recording}>
+              <a href={row.slides} target="_blank">
                 <div>
                   Slides Link
                 </div>
@@ -180,15 +196,10 @@ export default function ProfCourse() {
               </td>
             </tr>
           ))}
-
-          {emptyRows > 0 && (
-            <tr style={{ height: 41 * emptyRows }}>
-              <td colSpan={3} />
-            </tr>
-          )}
         </tbody>
       </table>
     </Root>
+  }
     </div>
   );
 }

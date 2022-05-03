@@ -7,18 +7,29 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 //import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
 
 export default function AddLecture() {
   const [open, setOpen] = React.useState(false);
-  const [courseid, setCourseId] = useState('');
-  const [courseName, setCourseName] = useState('');
+  const [date, setDate] = useState('');
+  const [title, setTitle] = useState('');
+  const [link, setLink] = useState('');
+  const [slides, setSlides] = useState('');
 
-  const courseIdChangeHandler = (event) => {
-    setCourseId(event.target.value);
+  const dateChangeHandler = (event) => {
+    setDate(event.target.value);
   };
 
-  const courseNameChangeHandler = (event) => {
-    setCourseName(event.target.value);
+  const titleChangeHandler = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const linkChangeHandler = (event) => {
+    setLink(event.target.value);
+  };
+
+  const slidesChangeHandler = (event) => {
+    setSlides(event.target.value);
   };
 
   const handleClickOpen = () => {
@@ -30,8 +41,25 @@ export default function AddLecture() {
   };
 
   const handleAdd = () => {
-    console.log(courseid);
-    console.log(courseName);
+    console.log(window.sessionStorage.getItem("course_id"))
+    axios.post(
+      "http://localhost:8080/professor/lecture/add",
+        {
+          "lecNo" : 1,
+          "courseId" : window.sessionStorage.getItem("course_id"),
+          "title" : title,
+          "date" : date,
+          "recordingLink" : link,
+          "slidesLink" : slides
+      }
+      )
+    .then(res => {
+        console.log(res)
+        window.location.href = "/profCourse";
+    })
+    .catch(err => {
+      alert(err);
+    })
     setOpen(false);
   };
 
@@ -49,39 +77,39 @@ export default function AddLecture() {
           <TextField
             autoFocus
             margin="normal"
-            id="id"
+            id="date"
             label="Date of Lecture"
             type= "date"
             fullWidth
             variant="filled"
             required
-            onChange={courseIdChangeHandler}
+            onChange={dateChangeHandler}
           />
           <TextField
             margin="normal"
-            id="name"
+            id="title"
             label="Lecture Title"
             fullWidth
             variant="filled"
             required
-            onChange={courseNameChangeHandler}
+            onChange={titleChangeHandler}
           />
           <TextField
             margin="normal"
-            id="name"
+            id="link"
             label="Lecture Link"
             fullWidth
             variant="filled"
             required
-            onChange={courseNameChangeHandler}
+            onChange={linkChangeHandler}
           />
           <TextField
             margin="normal"
-            id="name"
+            id="slides"
             label="Slides Link"
             fullWidth
             variant="filled"
-            onChange={courseNameChangeHandler}
+            onChange={slidesChangeHandler}
           />
         </DialogContent>
         <DialogActions>
