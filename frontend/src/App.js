@@ -17,7 +17,8 @@ import ProfLecture from "./components/profLecture/profLecture.js";
 import SelectRole from "./components/login/selectRole";
 import ProfLogIn from "./components/profLogin/profLogin";
 import ProfSignUp from "./components/profLogin/profSignup";
-import StudentDetails from "./components/profHomePage/details";
+//import StudentDetails from "./components/profHomePage/details";
+import GetDetails from "./components/profHomePage/getDetails";
 
 export default function App() {
   return (
@@ -49,7 +50,7 @@ export default function App() {
           </Route>
 
           <Route path="/studentDetails" exact>
-            <StudentDetails />
+            <GetDetails />
           </Route>
 
           <Route path="/profCourse" exact>

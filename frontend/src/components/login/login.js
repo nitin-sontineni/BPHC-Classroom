@@ -47,7 +47,6 @@ export default function LogIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(email);
-
     axios.post(
       "http://localhost:8080/student/login",
         {
@@ -104,9 +103,8 @@ export default function LogIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
               id="password"
-              // autoComplete="current-password"
+              autoComplete="current-password"
               onChange={passwordChangeHandler}
               type={showPassword ? "text" : "password"}
               InputProps={{ 

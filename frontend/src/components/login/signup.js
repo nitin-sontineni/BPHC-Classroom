@@ -23,7 +23,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    h5: {
+      color: 'blue'
+    },
+  }
+});
 
 export default function SignUp() {
 

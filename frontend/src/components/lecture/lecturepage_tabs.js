@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Notes from '../notes/notes.js';
+import Notes from '../notes/NotesList';
 import TakeFeedback from '../feedback/feedbackForm.js';
 
 interface TabPanelProps {

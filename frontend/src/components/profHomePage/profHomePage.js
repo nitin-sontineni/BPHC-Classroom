@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import { Box } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import MenuAppBar from '../../header';
 import img from '../../images/coding.jpg';
@@ -54,10 +55,17 @@ export default function ProfHomepage() {
     <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
       <AddCourse />
     </div>
-    {data.length == 0 ? <h3> Add new course to continue</h3> :
-    <div style={{paddingLeft : '15px', paddingRight : '15px', display: "inline-block", "whiteSpace": "nowrap"}}>
+    {data.length === 0 ? <h3> Add new course to continue</h3> :
+    <Box sx = {{
+      margin: 1,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      flexGrow: 10,}}
+    >
     {(data).map((elem) => (
-    <Card sx={{ maxWidth: 345 }} style={{ paddingRight : '15px', display: "inline-block", "whiteSpace": "nowrap",  justifyContent: "space-between" }}>
+    <Box sx={{margin : 1}}> 
+    <Card sx={{ maxWidth: 345 }} style={{display: "inline-block", }}>
       <CardMedia
         style = {{ height: 200}}
         component="img"
@@ -86,8 +94,9 @@ export default function ProfHomepage() {
         <Button size="small" variant="contained" style={{textTransform : 'none'}} href="/studentDetails">Get Details</Button>
       </CardActions>   
     </Card>
+    </Box>
     ))}
-    </div>
+    </Box>
     }
     </div>
   );

@@ -3,8 +3,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import IconLabelButtons from '../notes/notes.js';
-import RadioGroupRating from '../feedback/rating.js';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,15 +48,11 @@ export default function ProfLecturePageTabs() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-          <Tab label="Notes" style={{textTransform : 'none'}} {...a11yProps(0)} />
-          <Tab label="Feedback" style={{textTransform : 'none'}} {...a11yProps(1)} />
+          <Tab label="Feedaback" style={{textTransform : 'none'}} {...a11yProps(0)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Take Notes
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <RadioGroupRating />
+        Feedback
       </TabPanel>
     </Box>
   );

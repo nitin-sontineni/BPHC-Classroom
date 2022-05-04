@@ -45,12 +45,14 @@ export default function AddLecture() {
     axios.post(
       "http://localhost:8080/professor/lecture/add",
         {
-          "lecNo" : 1,
+          "lecture" : {
+          "lecNo" : window.sessionStorage.getItem("num_lectures"),
           "courseId" : window.sessionStorage.getItem("course_id"),
           "title" : title,
           "date" : date,
           "recordingLink" : link,
           "slidesLink" : slides
+          }
       }
       )
     .then(res => {

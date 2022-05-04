@@ -1,23 +1,24 @@
 import React, { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import FastRewindIcon from "@material-ui/icons/FastRewind";
-import FastForwardIcon from "@material-ui/icons/FastForward";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
-import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
-import Grid from "@material-ui/core/Grid";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeMute from "@material-ui/icons/VolumeOff";
-import FullScreen from "@material-ui/icons/Fullscreen";
-import Popover from "@material-ui/core/Popover";
+import Typography from '@mui/material/Typography';
+import { makeStyles, withStyles } from "@mui/styles";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import FastRewindIcon from "@mui/icons-material/FastRewind";
+import FastForwardIcon from "@mui/icons-material/FastForward";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import Slider from "@mui/material/Slider";
+import Tooltip from "@mui/material/Tooltip";
+import Grid from "@mui/material/Grid";
+import VolumeUp from "@mui/icons-material/VolumeUp";
+import VolumeDown from "@mui/icons-material/VolumeDown";
+import VolumeMute from "@mui/icons-material/VolumeOff";
+import FullScreen from "@mui/icons-material/Fullscreen";
+import Popover from "@mui/material/Popover";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   controlsWrapper: {
     visibility: "hidden",
     position: "absolute",
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   button: {
-    margin: theme.spacing(1),
+    //margin: theme.spacing(1),
   },
   controlIcons: {
     color: "#777",
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     width: 300
   },
-}));
+})
 
 const marks = [
   {
@@ -107,11 +108,11 @@ const PrettoSlider = withStyles({
   },
 })(Slider);
 
-function ValueLabelComponent(props) {
+function valuelabelcomponent(props) {
   const { children, open, value } = props;
 
   return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+    <Tooltip open={open} enterTouchDelay={0} placement="bottom" title={value}>
       {children}
     </Tooltip>
   );
@@ -220,8 +221,8 @@ const Controls = forwardRef(
               <PrettoSlider
                 min={0}
                 max={100}
-                ValueLabelComponent={(props) => (
-                  <ValueLabelComponent {...props} value={elapsedTime} />
+                valuelabelcomponent={(props) => (
+                  <valuelabelcomponent {...props} value={elapsedTime} />
                 )}
                 aria-label="custom thumb label"
                 value={played * 100}

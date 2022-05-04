@@ -3,17 +3,20 @@ import NotesForm from './NotesForm';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 
-const Note = ({ todos, completeTodo, removeTodo, updateTodo }) => {
+const Note = ({ todos, removeTodo, updateTodo }) => {
+  //console.log(todos)
   const [edit, setEdit] = useState({
     id: null,
-    value: ''
+    value: '',
+    time: '',
   });
 
   const submitUpdate = value => {
-    updateTodo(edit.id, value);
+    updateTodo(edit.id, value,edit.time);
     setEdit({
       id: null,
-      value: ''
+      value: '',
+      time: ''
     });
   };
 
@@ -21,13 +24,13 @@ const Note = ({ todos, completeTodo, removeTodo, updateTodo }) => {
     return <NotesForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  return todos.map((todo, index) => (
+  return todos.map((todo) => (
     <div
-      className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
-      key={index}
+      className={'todo-row'}
+      key={todo.id}
     >
-      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
-        {todo.text}
+      <div key={todo.id} >
+        {todo.time}:  {todo.text}
       </div>
       <div className='icons'>
         <RiCloseCircleLine
@@ -35,7 +38,7 @@ const Note = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           className='delete-icon'
         />
         <TiEdit
-          onClick={() => setEdit({ id: todo.id, value: todo.text })}
+          onClick={() => setEdit({ id: todo.id, value: todo.text, time: todo.time })}
           className='edit-icon'
         />
       </div>

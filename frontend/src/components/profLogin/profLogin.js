@@ -110,9 +110,8 @@ export default function ProfLogIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
               id="password"
-              // autoComplete="current-password"
+              autoComplete="current-password"
               onChange={passwordChangeHandler}
               type={showPassword ? "text" : "password"}
               InputProps={{ 

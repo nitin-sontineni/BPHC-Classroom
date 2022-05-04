@@ -1,20 +1,10 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
-import { Button } from '@mui/material';
+import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../header';
-
-function createData(no, id , name,) {
-  return { no, id, name };
-}
-
-const rows = [
-  createData("1", "2018xxxxxx", "Sohan"),
-  createData("2", "2019xxxxxx", "Nivesh"),
-  // createData("1", "01-01-2022", "Introduction", 1, 1),
-  // createData("2", "03-01-2022", "Arrays", 1, 1),
-  // createData("3", "05-01-2022", "Pointers", 1, 1)
-]
+import axios from 'axios';
 
 const blue = {
   200: '#A5D8FF',
@@ -115,64 +105,66 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
   `,
 );
 
-export default function StudentDetails() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+export default function GetDetails() {
+  const [details, setDetails] = React.useState([]);
+  const [mounted, setMounted] = useState(false);
+  // console.log(window.sessionStorage.getItem("course_id"))
+  console.log(window.sessionStorage.getItem("student_course_id"))
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  if(!mounted) {
+  axios.post(
+    "http://localhost:8080/professor/course/details",
+      {
+        "courseId" : window.sessionStorage.getItem("course_id"),
+      }
+    )
+  .then(res => { 
+    console.log(res)
+    setDetails(res["data"])
+  })
+  .catch(err => {
+    alert(err);
+  })
+}
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  React.useEffect(() =>{
+    setMounted(true)
+  },[])
+  
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+
 
   return (
     <div>
     <MenuAppBar />
-    <h2> Student Details</h2>
+    <h2> {window.sessionStorage.getItem("student_course_id")} - {window.sessionStorage.getItem("student_course_name")}</h2>
     <div style={{paddingLeft : '15px', paddingBottom : '10px'}}>
-        <Button variant="outlined" style={{textTransform : 'none'}} href="/profHomepage">Back to Courses</Button>
-      </div>
+        <Button variant="outlined" style={{textTransform : 'none'}} href="/homepage">Back to Homepage</Button>
+    </div>
+    {details.length == 0 ? <h3> No students enrolled in this course</h3> :
     <Root sx={{ width: 1200, maxWidth: '100%', paddingLeft: "15px" }}>
       <table aria-label="custom pagination table">
         <thead>
           <tr>
-            <th>No</th>
             <th>Student ID</th>
             <th>Student Name</th>
           </tr>
         </thead>
         <tbody>
-          {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows
-          ).map((row) => (
-            <tr key={row.no}>
-              <td style={{ width: 20 }}>{row.no}</td>
+          {(details).map((row) => (
+            <tr key={row.studentId}>
               <td style={{ width: 100 }} align="right">
-                {row.id}
+                {row.studentName}
               </td>
               <td style={{ width: 100 }} align="right">
-                {row.name}
+                {row.studentId}
               </td>
-              
             </tr>
           ))}
-
-          {emptyRows > 0 && (
-            <tr style={{ height: 41 * emptyRows }}>
-              <td colSpan={3} />
-            </tr>
-          )}
         </tbody>
       </table>
     </Root>
+    }
     </div>
   );
 }

@@ -133,11 +133,12 @@ export default function ProfCourse() {
     "http://localhost:8080/professor/course/content",
       {
         "courseId" : window.sessionStorage.getItem("course_id"),
-    }
+      }
     )
   .then(res => { 
     console.log(res)
-    //setRows(res)
+    window.sessionStorage.setItem("num_lectures", res['data'].length)
+    setRows(res["data"])
   })
   .catch(err => {
     alert(err);
@@ -147,8 +148,6 @@ export default function ProfCourse() {
   React.useEffect(() =>{
     setMounted(true)
   },[])
-
-  
 
   return (
     <div>
@@ -172,10 +171,10 @@ export default function ProfCourse() {
         <tbody>
           {(rows
           ).map((row) => (
-            <tr key={row.no}>
-              <td style={{ width: 20 }}>{row.no}</td>
+            <tr key={row.lecNo}>
+              <td style={{ width: 20 }}>{row.lecNo}</td>
               <td style={{ width: 100 }} align="right">
-                {row.dol}
+                {row.date}
               </td>
               <td style={{ width: 100 }} align="right">
                 {row.title}
@@ -188,7 +187,7 @@ export default function ProfCourse() {
                 </a>
               </td>
               <td style={{ width: 180 }} align="right">
-              <a href={row.slides} target="_blank">
+              <a href={row.slides}>
                 <div>
                   Slides Link
                 </div>

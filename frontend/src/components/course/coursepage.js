@@ -6,19 +6,6 @@ import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../header';
 import axios from 'axios';
 
-// function createData(no, dol , title, recording, slides) {
-//   return { no, dol , title, recording, slides };
-// }
-
-// const rows = [
-//   createData("1", "01-01-2022", "Introduction", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
-//   createData("2", "03-01-2022", "Arrays", "www.youtube.com/watch?v=8PopR3x-VMY", "https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1"),
-//   createData("3", "05-01-2022", "Pointers", "www.youtube.com/watch?v=8PopR3x-VMY","https://drive.google.com/drive/u/1/folders/1WsQ89lblDwF5sT-ppxBPncH39qH-jKY1")
-//   // createData("1", "01-01-2022", "Introduction", 1, 1),
-//   // createData("2", "03-01-2022", "Arrays", 1, 1),
-//   // createData("3", "05-01-2022", "Pointers", 1, 1)
-// ]
-
 const blue = {
   200: '#A5D8FF',
   400: '#3399FF',
@@ -121,24 +108,24 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 export default function UnstyledTable() {
   const [rows, setRows] = React.useState([]);
   const [mounted, setMounted] = useState(false);
+  // console.log(window.sessionStorage.getItem("course_id"))
+  console.log(window.sessionStorage.getItem("student_course_id"))
 
   if(!mounted) {
   axios.post(
-    "http://localhost:8080/student/course/content",
+    "http://localhost:8080/professor/course/content",
       {
         "courseId" : window.sessionStorage.getItem("student_course_id"),
       }
     )
   .then(res => { 
     console.log(res)
-    // window.sessionStorage.setItem("student_name",res["data"]["student"]["name"]);
-    // window.sessionStorage.setItem("student_id",res["data"]["student"]["studentId"]);
-    // window.sessionStorage.setItem("student_courses",res["data"]["student"]["courses"]);
+    setRows(res["data"])
   })
   .catch(err => {
     alert(err);
   })
-  }
+}
 
   React.useEffect(() =>{
     setMounted(true)
@@ -168,10 +155,10 @@ export default function UnstyledTable() {
         </thead>
         <tbody>
           {(rows).map((row) => (
-            <tr key={row.no}>
-              <td style={{ width: 20 }}>{row.no}</td>
+            <tr key={row.lecNo}>
+              <td style={{ width: 20 }}>{row.lecNo}</td>
               <td style={{ width: 100 }} align="right">
-                {row.dol}
+                {row.date}
               </td>
               <td style={{ width: 100 }} align="right">
                 {row.title}
@@ -179,12 +166,12 @@ export default function UnstyledTable() {
               <td style={{ width: 180 }} align="right">
                 <a href= "/lecture">
                 <div>
-                  Lecture Link
+                  {row.recordingLink}
                 </div>
                 </a>
               </td>
               <td style={{ width: 180 }} align="right">
-              <a href={row.slides} target="_blank">
+              <a href= {row.slidesLink} target="_blank">
                 <div>
                   Slides Link
                 </div>
